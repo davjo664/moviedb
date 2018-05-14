@@ -1,22 +1,23 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 // User schema
 const userSchema = mongoose.Schema({
-    userid: {
-        type: Number,
+    name: {
+        type: String,
         required: true
     },
     email: {
         type: String,
         required: true
     },
-    password: {
+    username: {
         type: String,
         required: true
     },
-    create_date:{
-        type: Date,
-        default: Date.now
+    password:{
+        type: String,
+        required: true
     }
 });
 
@@ -24,6 +25,19 @@ const User = mongoose.model('Users', userSchema);
 // Get User
 User.getUser = (callback, email) => {
     User.find(callback).where('email', email);
+}
+// Add User
+User.addUser = (userObj, callback) => {
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(userObj.password, salt, (err, hash) => {
+            if (err) {
+                console.log(err);
+            }
+            userObj.password = hash;
+            let newUser = new User(userObj);
+            newUser.save(callback);
+        });
+    });
 }
 
 export default User;

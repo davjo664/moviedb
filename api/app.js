@@ -5,18 +5,21 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
+import passport from 'passport';
 
-import Watchlist from './models/watchlist';
 import User from './models/user';
+import watchlistRoute from './routes/watchlist';
+import movieRoute from './routes/movie';
+import userRoute from './routes/user';
+import dbConfig from './config/database';
+import passportConfig from './config/passport';
 
 const app = express();
-let genresMap = new Map();
 
 // Middlewares
-
 // Body parser to be able to read req.body.
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+// support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json())
 
@@ -33,8 +36,21 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+passportConfig(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Save the user globally
+app.get('*', (req, res, next) => {
+    // Passport saves user in req.user
+    res.locals.user = req.user || null;
+    next();
+})
+
+
 // Connect to Mongoose
-mongoose.connect('mongodb://localhost/moviedb');
+mongoose.connect(dbConfig.database);
 var db = mongoose.connection;
 
 // Check connection
@@ -47,9 +63,10 @@ db.on('error', (err) => {
     console.log(err);
 })
 
-app.get('/api', (req, res) => {
-    res.send('Use /api/login or /api/watchlist');
-});
+// Routes
+app.use('/api/watchlist', watchlistRoute);
+app.use('/api/movie', movieRoute);
+app.use('/api/user', userRoute);
 
 app.get('/api/login', (req, res) => {
     console.log("login")
@@ -58,71 +75,12 @@ app.get('/api/login', (req, res) => {
     res.json({});
 });
 
-app.get('/api/watchlist', (req, res) => {
-    Watchlist.getWatchlist((err, watchlist) => {
-        console.log("watchlist")
-        if(err) {
-            throw err;
-        }
-        res.json(watchlist);
-    })
-});
-
-app.post('/api/watchlist', (req, res) => {
-    Watchlist.addToWatchlist(req, (err) => {
-        if(err) {
-            console.log("Failed to add to watchlist");
-            return;
-        } else {
-            res.send("Added to watchlist");
-        }
-
-    })
-});
-
-app.get('/api/movie/:id', (req, res) => {
-    // Get movie with specific id
-    // and include key to youtube trailers
-    let movieId = req.params.id;
-    
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=dc26abc8af32720ec9f3dc483dc521ae&append_to_response=videos`)
-    .then((movieRes) => movieRes.json())
-    .then((movie) => {
-        let movieTitle = movie.original_title;
-        res.json(movieTitle);
-    })
-});
-
-app.get('/api/movie/genre/:genre', (req, res) => {
-    let genre = req.params.genre;
-    let genreId = genresMap.get(genre);
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${genreId}&sort_by=vote_average.desc`)
-    .then((genreRes) => genreRes.json())
-    .then((movies) => {
-        res.json(movies);
-    })
-
-    // https://www.youtube.com/watch?v=SUXWAEX2jlg
-    // Get sci-fi movies sorted by rating
-    // 20 per page. To get next page add &page=2
-    // https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=878&sort_by=vote_average.desc
-});
-
-User.getUser((err, user) => {
-    if(err) {
-        throw err;
-    }
-    console.log(user);
-}, "test@gmail.com");
-
-// Load genres
-fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=dc26abc8af32720ec9f3dc483dc521ae')
-.then((res) => res.json())
-.then((genres) => {
-    genres.genres.forEach((genre) => {
-        genresMap.set(genre.name, genre.id);
-    })
-})
+// User.getUser((err, user) => {
+//     if(err) {
+//         throw err;
+//     }
+//     console.log(user);
+// }, "test@gmail.com");
 
 app.listen(3000);
 console.log('Running on port 3000...');

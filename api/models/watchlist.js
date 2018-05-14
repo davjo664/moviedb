@@ -12,7 +12,7 @@ const watchlistSchema = mongoose.Schema({
     },
     watched: {
         type: Boolean,
-        required: true
+        default: false
     },
     create_date:{
         type: Date,
@@ -21,15 +21,22 @@ const watchlistSchema = mongoose.Schema({
 });
 
 const Watchlist = mongoose.model('Watchlists', watchlistSchema);
-Watchlist.getWatchlist = (callback, limit) => {
-    Watchlist.find(callback).limit(limit);
+Watchlist.getWatchlist = (userId, callback) => {
+    Watchlist.find({ userid: userId }).exec(callback);
 }
-Watchlist.addToWatchlist = (req, callback) => {
-    let movie = new Watchlist();
-    movie.movieid = req.query.movieid;
-    movie.userid = req.query.userid;
-    movie.watched = req.query.watched;
-    movie.save(callback);
+Watchlist.updateWatchlistMovie = (req, callback) => {
+    let watchlistObj = req.body;
+    Watchlist.findOneAndUpdate(
+        { _id: req.params.id},
+        { "watched" : watchlistObj.watched }
+    ).exec(callback);
+}
+Watchlist.addMovieToWatchlist = (watchlistObj, callback) => {
+    let watchlistMovie = new Watchlist(watchlistObj);
+    watchlistMovie.save(callback);
+}
+Watchlist.deleteWatchlistMovie = (watchlistMovieId, callback) => {
+    Watchlist.remove({ _id: watchlistMovieId}, callback);
 }
 
 export default Watchlist;
