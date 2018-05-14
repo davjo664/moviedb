@@ -7,7 +7,7 @@ const watchlistSchema = mongoose.Schema({
         required: true
     },
     userid: {
-        type: Number,
+        type: String,
         required: true
     },
     watched: {
@@ -26,17 +26,14 @@ Watchlist.getWatchlist = (userId, callback) => {
 }
 Watchlist.updateWatchlistMovie = (req, callback) => {
     let watchlistObj = req.body;
-    Watchlist.findOneAndUpdate(
-        { _id: req.params.id},
-        { "watched" : watchlistObj.watched }
-    ).exec(callback);
+    Watchlist.update({ _id: req.params.id, userid: req.user._id}, { "watched" : watchlistObj.watched }).exec(callback);
 }
 Watchlist.addMovieToWatchlist = (watchlistObj, callback) => {
     let watchlistMovie = new Watchlist(watchlistObj);
     watchlistMovie.save(callback);
 }
-Watchlist.deleteWatchlistMovie = (watchlistMovieId, callback) => {
-    Watchlist.remove({ _id: watchlistMovieId}, callback);
+Watchlist.deleteWatchlistMovie = (req, callback) => {
+    Watchlist.remove({ _id: req.params.id, userid: req.user._id}).exec(callback);
 }
 
 export default Watchlist;

@@ -5,9 +5,19 @@ import Watchlist from '../models/watchlist';
 
 const router = express.Router();
 
+// Access control
+const ensureAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.send('Not logged in');
+    }
+}
+
 // Add movie to watchlist
-router.post('/', (req, res) => {
+router.post('/', ensureAuthenticated, (req, res) => {
     let watchlistObj = req.body;
+    watchlistObj.userid = req.user._id;
 
     Watchlist.addMovieToWatchlist(watchlistObj, (err) => {
         if(err) {
@@ -22,19 +32,19 @@ router.post('/', (req, res) => {
 });
 
 // Get watchlist for user
-router.get('/:userid', (req, res) => {
-    let userId = req.params.userid;
+router.get('/', ensureAuthenticated, (req, res) => {
+    let userId = req.user._id;
     Watchlist.getWatchlist(userId, (err, watchlist) => {
         if(err) {
             console.log("Failed to find watchlist");
-            return;
+            res.json({});
         }
         res.json(watchlist);
     })
 });
 
 // Edit movie from watchlist
-router.put('/:id', (req, res) => {
+router.put('/:id', ensureAuthenticated, (req, res) => {
     Watchlist.updateWatchlistMovie(req, (err) => {
         if(err) {
             console.log("Failed to edit watchlist");
@@ -46,14 +56,15 @@ router.put('/:id', (req, res) => {
 });
 
 // Delete movie from watchlist
-router.delete('/:id', (req, res) => {
-    let watchlistMovieId = req.params.id;
-    Watchlist.deleteWatchlistMovie(watchlistMovieId, (err) => {
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+    Watchlist.deleteWatchlistMovie(req, (err) => {
         if(err) {
             console.log("Failed to delete watchlist movie");
             console.log(err);
             res.send("error");
         }
+
+        //TODO: Always sends this, even if no record was deleted
         res.send("Watchlist movie deleted");
     })
 });

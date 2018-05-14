@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import passport from 'passport';
+import session from 'express-session';
 
 import User from './models/user';
 import watchlistRoute from './routes/watchlist';
@@ -14,12 +15,27 @@ import userRoute from './routes/user';
 import dbConfig from './config/database';
 import passportConfig from './config/passport';
 
+// Connect to Mongoose
+mongoose.connect(dbConfig.database);
+var db = mongoose.connection;
+
+// Check connection
+db.once('open', () => {
+    console.log("Connected to MongoDB");
+})
+
+// Check for DB errors
+db.on('error', (err) => {
+    console.log(err);
+})
+
+// Init app
 const app = express();
 
 // Middlewares
 // Body parser to be able to read req.body.
 // support encoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json())
 
@@ -36,6 +52,13 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+// Express Session Middleware
+app.use(session({
+    secret: 'topsecret',
+    resave: true,
+    saveUninitialized: true
+  }));
+
 passportConfig(passport);
 // Passport Middleware
 app.use(passport.initialize());
@@ -48,39 +71,16 @@ app.get('*', (req, res, next) => {
     next();
 })
 
-
-// Connect to Mongoose
-mongoose.connect(dbConfig.database);
-var db = mongoose.connection;
-
-// Check connection
-db.once('open', () => {
-    console.log("Connected to MongoDB");
-})
-
-// Check for DB errors
-db.on('error', (err) => {
-    console.log(err);
-})
+// Home Route
+app.get('/', function(req, res){
+    console.log(req.user);
+    res.send("home sweet home");
+});
 
 // Routes
 app.use('/api/watchlist', watchlistRoute);
 app.use('/api/movie', movieRoute);
 app.use('/api/user', userRoute);
-
-app.get('/api/login', (req, res) => {
-    console.log("login")
-    console.log(req.query);
-
-    res.json({});
-});
-
-// User.getUser((err, user) => {
-//     if(err) {
-//         throw err;
-//     }
-//     console.log(user);
-// }, "test@gmail.com");
 
 app.listen(3000);
 console.log('Running on port 3000...');

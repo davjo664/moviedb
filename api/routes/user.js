@@ -20,11 +20,12 @@ router.post('/', (req, res) => {
 });
 
 // Login Process
-router.post('/login', (req, res, next) => {
+router.post('/login', function(req, res, next){
     passport.authenticate('local', {
-        sucessRedirect: '/'
+      successRedirect:'/',
+      failureRedirect:'/',
     })(req, res, next);
-})
+  });
 
 // Logout Process
 router.post('/logout', (req, res) => {
