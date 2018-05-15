@@ -6,19 +6,19 @@ const LocalStrategy = Strategy;
 
 const passportConfig = (passport) => {
     // Local Strategy
-    passport.use(new LocalStrategy(function(username, password, done){
+    passport.use(new LocalStrategy((username, password, done) => {
       // Match Username
       let query = {username:username};
-      User.findOne(query, function(err, user){
-        if(err) throw err;
-        if(!user){
+      User.findOne(query, (err, user) => {
+        if (err) throw err;
+        if (!user) {
           return done(null, false, {message: 'No user found'});
         }
   
         // Match Password
-        bcrypt.compare(password, user.password, function(err, isMatch){
-          if(err) throw err;
-          if(isMatch){
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
             return done(null, user);
           } else {
             return done(null, false, {message: 'Wrong password'});
@@ -27,12 +27,12 @@ const passportConfig = (passport) => {
       });
     }));
   
-    passport.serializeUser(function(user, done) {
+    passport.serializeUser((user, done) => {
       done(null, user.id);
     });
   
-    passport.deserializeUser(function(id, done) {
-      User.findById(id, function(err, user) {
+    passport.deserializeUser((id, done) => {
+      User.findById(id, (err, user) => {
         done(err, user);
       });
     });

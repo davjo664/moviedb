@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
     .then((movieRes) => movieRes.json())
     .then((movie) => {
         let movieTitle = movie.title;
-        res.json(movieTitle);
+        res.json(movie);
     })
 });
 

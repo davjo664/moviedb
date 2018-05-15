@@ -22,10 +22,6 @@ const userSchema = mongoose.Schema({
 });
 
 const User = mongoose.model('Users', userSchema);
-// Get User
-User.getUser = (callback, email) => {
-    User.find(callback).where('email', email);
-}
 // Add User
 User.addUser = (userObj, callback) => {
     bcrypt.genSalt(10, (err, salt) => {

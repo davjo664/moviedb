@@ -5,9 +5,8 @@ import passport from 'passport';
 const router = express.Router();
 
 // Add user
-router.post('/', (req, res) => {
+router.post('/register', (req, res) => {
     let userObj = req.body;
-
     User.addUser(userObj, (err) => {
         if(err) {
             console.log("Failed to add user");
@@ -30,7 +29,8 @@ router.post('/login', function(req, res, next){
 // Logout Process
 router.post('/logout', (req, res) => {
     // Passport logout
-    req.logOut();
+    req.logout();
+    res.redirect('/');
 })
 
 export default router;

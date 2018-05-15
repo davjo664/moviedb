@@ -53,28 +53,22 @@ app.use(cors({
 }));
 
 // Express Session Middleware
+// Stored in application memory for now
 app.use(session({
     secret: 'topsecret',
     resave: true,
     saveUninitialized: true
   }));
 
+// Setup passport config
 passportConfig(passport);
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Save the user globally
-app.get('*', (req, res, next) => {
-    // Passport saves user in req.user
-    res.locals.user = req.user || null;
-    next();
-})
-
 // Home Route
 app.get('/', function(req, res){
-    console.log(req.user);
-    res.send("home sweet home");
+    res.send("Home");
 });
 
 // Routes
