@@ -1,6 +1,5 @@
 import express from 'express';
 import User from '../models/user';
-import passport from 'passport';
 
 const router = express.Router();
 
@@ -18,19 +17,17 @@ router.post('/register', (req, res) => {
     })
 });
 
-// Login Process
-router.post('/login', function(req, res, next){
-    passport.authenticate('local', {
-      successRedirect:'/',
-      failureRedirect:'/',
-    })(req, res, next);
-  });
-
-// Logout Process
-router.post('/logout', (req, res) => {
-    // Passport logout
-    req.logout();
-    res.redirect('/');
-})
+// Delete user
+router.post('/unregister', (req, res) => {
+    User.deleteUser(req, (err) => {
+        if(err) {
+            console.log("Failed to delete user");
+            console.log(err);
+            res.send("error");
+        } else {
+            res.send("Deleted user");
+        }
+    })
+});
 
 export default router;

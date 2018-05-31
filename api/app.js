@@ -1,3 +1,8 @@
+//TODO:
+
+// Get rid of the fetch dependecies, can use node requests instead
+// Rename the routes to plural
+
 import express from 'express';
 import fetch from 'isomorphic-fetch';
 import bodyParser from 'body-parser';
@@ -12,6 +17,7 @@ import User from './models/user';
 import watchlistRoute from './routes/watchlist';
 import movieRoute from './routes/movie';
 import userRoute from './routes/user';
+import sessionRoute from './routes/session';
 import dbConfig from './config/database';
 import passportConfig from './config/passport';
 
@@ -47,7 +53,7 @@ app.use(helmet());
 
 // Allow only access to endpoints from http://localhost:3000
 app.use(cors({  
-    origin: ["http://localhosta:3000"],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -75,6 +81,7 @@ app.get('/', function(req, res){
 app.use('/api/watchlist', watchlistRoute);
 app.use('/api/movie', movieRoute);
 app.use('/api/user', userRoute);
+app.use('/api/session', sessionRoute);
 
 app.listen(3000);
 console.log('Running on port 3000...');

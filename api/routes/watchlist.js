@@ -1,7 +1,7 @@
 // CRUD routes for watchlist
 
 import express from 'express';
-import Watchlist from '../models/watchlist';
+import User from '../models/user';
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.send('Not logged in');
+        res.status(403).json({ error: 'Not logged in' })
     }
 }
 
@@ -19,7 +19,7 @@ router.post('/', ensureAuthenticated, (req, res) => {
     let watchlistObj = req.body;
     watchlistObj.userid = req.user._id;
 
-    Watchlist.addMovieToWatchlist(watchlistObj, (err) => {
+    User.addMovieToWatchlist(watchlistObj, (err) => {
         if(err) {
             console.log("Failed to add to watchlist");
             console.log(err);
@@ -34,18 +34,18 @@ router.post('/', ensureAuthenticated, (req, res) => {
 // Get watchlist for user
 router.get('/', ensureAuthenticated, (req, res) => {
     let userId = req.user._id;
-    Watchlist.getWatchlist(userId, (err, watchlist) => {
+    User.getWatchlist(userId, (err, watchlist) => {
         if(err) {
             console.log("Failed to find watchlist");
             res.json({});
         }
-        res.json(watchlist);
+        res.json(watchlist[0].movies);
     })
 });
 
 // Edit movie from watchlist
 router.put('/:id', ensureAuthenticated, (req, res) => {
-    Watchlist.updateWatchlistMovie(req, (err) => {
+    User.updateWatchlistMovie(req, (err) => {
         if(err) {
             console.log("Failed to edit watchlist");
             console.log(err);
@@ -57,14 +57,13 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
 
 // Delete movie from watchlist
 router.delete('/:id', ensureAuthenticated, (req, res) => {
-    Watchlist.deleteWatchlistMovie(req, (err) => {
+    User.deleteWatchlistMovie(req, (err) => {
         if(err) {
             console.log("Failed to delete watchlist movie");
             console.log(err);
             res.send("error");
         }
 
-        //TODO: Always sends this, even if no record was deleted
         res.send("Watchlist movie deleted");
     })
 });
