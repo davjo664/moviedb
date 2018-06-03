@@ -1,8 +1,8 @@
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
-  margin-bottom: 20px;
+  height: 50px;
+  padding: 10px;
+  text-align: center;
   color: white;
 }
 
@@ -22,4 +22,9 @@
 
 .loading {
   background: url(loading.gif) 50% no-repeat;
+}
+
+body,html{
+  overflow:hidden;
+  height: 100%;
 }

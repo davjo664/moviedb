@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Image from './Image'
 
-let genresMap = new Map([["Action",28],["Crime",80],["Drama",18],["Fantasy",14]]);
+let genresMap = new Map([["Action",28],["Crime",80],["Drama",18],["Fantasy",14],["Adventure", 12], ["Animation", 16], ["Comedy",35]]);
+
 class GenreContainer extends Component {
 
     constructor(props) {
@@ -56,7 +57,7 @@ class GenreContainer extends Component {
         ));
         
         return (
-            <div>
+            <div style={{position: 'relative'}}>
                 <div style={{zIndex:1, left:window.innerWidth-50, position: 'absolute',height: window.innerWidth/4*(4/3), width: 50,background: 'linear-gradient(to left,rgb(255, 255, 255) 20%, rgba(58, 79, 202, 0) 80%)'}} />
                 <div id={this.props.genre} style={{whiteSpace: 'nowrap', overflow: 'auto', paddingRight: 20, marginLeft: 10}}> 
                     {renderMovies}
