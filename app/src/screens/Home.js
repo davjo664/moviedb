@@ -48,8 +48,8 @@ class Home extends Component {
             </div>
         ))
         return (
-            // TODO: FIX THE HEIGHT ISSUE
-            <div id='home' style={{overflow: 'scroll', height: window.innerHeight-80}}> 
+            // Footer and header have both 56px height
+            <div id='home' style={{overflow: 'scroll', height: window.innerHeight-56*2}}> 
                 {movieGenres}
             </div>
         )

@@ -8,18 +8,28 @@ import 'typeface-roboto'
 import store from './store'
 import Login from './components/Login'
 import Home from './screens/Home';
+import Search from './screens/Search';
+import List from './screens/List';
+import HeaderBar from './components/HeaderBar'
+import FooterBar from './components/FooterBar'
+
+import { BrowserRouter, Route } from 'react-router-dom'
+
 
 class App extends Component {
 
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <header className="App-header">
-            <h1 className="App-title">MovieDB</h1>
-          </header>
-          <Home />
-        </div>
+        <BrowserRouter>
+          <div>
+            <HeaderBar />
+            <Route path="/" component={Home} exact /> {/*exact: Only render the component if the url is exact*/}
+            <Route path="/search" component={Search} />
+            <Route path="/list" component={List} />
+            <FooterBar />
+          </div>
+        </BrowserRouter>
       </Provider>
     );
   }
