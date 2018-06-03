@@ -6,10 +6,11 @@ import { Provider } from 'react-redux'
 import 'typeface-roboto'
 
 import store from './store'
-import Movies from './components/Movie'
 import Login from './components/Login'
+import Home from './screens/Home';
 
-/*class App extends Component {
+class App extends Component {
+
   render() {
     return (
       <Provider store={store}>
@@ -17,25 +18,24 @@ import Login from './components/Login'
           <header className="App-header">
             <h1 className="App-title">MovieDB</h1>
           </header>
-          <hr />
-          <Movies />
+          <Home />
         </div>
       </Provider>
     );
   }
-}*/
-
-class App extends Component {
-  render() {
-    return (
-
-      <div>
-        <h1>Welcome to MovieDB</h1>
-
-        <Login/>
-      </div>
-    )
-  }
 }
+
+// class App extends Component {
+//   render() {
+//     return (
+
+//       <div>
+//         <h1>Welcome to MovieDB</h1>
+
+//         <Login/>
+//       </div>
+//     )
+//   }
+// }
 
 export default App;
