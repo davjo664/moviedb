@@ -1,8 +1,8 @@
 //The root reducer
 
 import { combineReducers } from 'redux';
-// import movieReducer from '../components/Movie/movieReducer';
+import searchReducer from '../components/SearchHeaderBar/reducer';
 
 export default combineReducers({
-    // movies: movieReducer
+    searchReducer: searchReducer
 })

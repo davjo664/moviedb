@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom'
 class HeaderBar extends Component {
 
     handleClick = (event, value) => {
+        this.props.onSearchBtnClick();
         this.props.history.push("/search");
     };
 
