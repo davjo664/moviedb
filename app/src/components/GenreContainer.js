@@ -1,34 +1,21 @@
 import React, { Component } from 'react';
 import Image from './Image'
 
-let genresMap = new Map([["Action",28],["Crime",80],["Drama",18],["Fantasy",14],["Adventure", 12], ["Animation", 16], ["Comedy",35]]);
-
 class GenreContainer extends Component {
 
     constructor(props) {
         super(props);
         this.page = 1;
-        this.state = {
-            movies: []
-        };
     }
 
-    componentWillMount() {
-        this.fetchMovies(this.props.genre);
-    }
-
-
-    fetchMovies(genre) {
-        let genreId = genresMap.get(genre);
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${genreId}&sort_by=vote_average.desc&page=${this.page}`)
-        .then((res) => res.json())
-        .then((posts) => {
-            this.setState({
-                ...this.state,
-                movies: [...this.state.movies, ...posts.results]
-            })
-            this.page++;
-        })
+    fetchMovies(genre, page) {
+        console.log("isLoading");
+        console.log(this.props.isLoading);
+        if (!this.props.isLoading) {
+            console.log("Fetch more movies");
+            this.props.setLoading(true);
+            this.props.fetchMoviesByGenre(genre, page);
+        }
     }
 
     componentDidMount() {
@@ -46,15 +33,17 @@ class GenreContainer extends Component {
         let containerWidth = event.srcElement.scrollWidth;
         let windowWidth = window.innerWidth;
         if (scrollPos > containerWidth-windowWidth-imgWidth*2) {
-            console.log("Fetch more movies");
-            this.fetchMovies(this.props.genre);
+            this.fetchMovies(this.props.genre, 2);
         }
     }
 
     render() {
-        const renderMovies = this.state.movies.map((movie) => (
-            <Image key={movie.id} poster_path={movie.poster_path}  />
-        ));
+        let renderMovies;
+        if ( this.props.movies ) {
+            renderMovies = this.props.movies.map((movie) => (
+                <Image key={movie.id} poster_path={movie.poster_path}  />
+            ));
+        }
         
         return (
             <div style={{position: 'relative'}}>

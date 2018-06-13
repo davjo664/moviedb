@@ -7,12 +7,9 @@ import 'typeface-roboto'
 
 import store from './store'
 import Login from './components/Login'
-import Home from './screens/Home';
-import Search from './screens/Search';
+import SearchContainer from './container/SearchContainer';
+import HomeContainer from './container/HomeContainer';
 import List from './screens/List';
-import HeaderBar from './components/HeaderBar'
-import FooterBar from './components/FooterBar'
-import SearchHeaderBar from './components/SearchHeaderBar/SearchHeaderBar'
 
 import { BrowserRouter, Route } from 'react-router-dom'
 
@@ -26,44 +23,16 @@ class App extends Component {
       };
   }
 
-  handleSearchBtnClick() {
-    console.log("CLICK SEARCH");
-    this.setState({
-      searchScreen: true
-    })
-  }
-
-  handleBackBtnClick() {
-    console.log("CLICK BACK");
-    this.setState({
-      searchScreen: false
-    })
-  }
-
-  _renderHeaderBar() {
-    if (this.state.searchScreen) {
-      return <SearchHeaderBar onBackBtnClick={this.handleBackBtnClick.bind(this)} />
-    }
-    return <HeaderBar onSearchBtnClick={this.handleSearchBtnClick.bind(this)} />
-  }
-
-  _renderFooterBar() {
-    if (!this.state.searchScreen) {
-      return <FooterBar />
-    }
-    return null
-  }
-
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
           <div>
-            {this._renderHeaderBar()}
-            <Route path="/" component={Home} exact /> {/*exact: Only render the component if the url is exact*/}
-            <Route path="/search" component={Search} />
+            {/* {this._renderHeaderBar()} */}
+            <Route path="/" component={HomeContainer} exact /> {/*exact: Only render the component if the url is exact*/}
+            <Route path="/search" component={SearchContainer} />
             <Route path="/list" component={List} />
-            {this._renderFooterBar()}
+            {/* {this._renderFooterBar()} */}
           </div>
         </BrowserRouter>
       </Provider>

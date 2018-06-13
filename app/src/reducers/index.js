@@ -1,8 +1,10 @@
 //The root reducer
 
 import { combineReducers } from 'redux';
-import searchReducer from '../components/SearchHeaderBar/reducer';
+import searchReducer from '../container/SearchContainer/reducer';
+import homeReducer from '../container/HomeContainer/reducer';
 
 export default combineReducers({
-    searchReducer: searchReducer
+    searchReducer: searchReducer,
+    homeReducer: homeReducer
 })

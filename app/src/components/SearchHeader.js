@@ -1,30 +1,22 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import {Icon} from '@material-ui/core'
-
-import { withRouter } from 'react-router-dom'
-
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
+import { withRouter } from 'react-router-dom'
 
-import { connect } from 'react-redux';
-import {
-  updateSearchString
-} from './actions';
-
-class SearchHeaderBar extends Component {
+class SearchHeader extends Component {
 
     handleClick = (event, value) => {
-        this.props.onBackBtnClick();
         this.props.history.goBack();
     };
 
     _onChange = text => {
+        console.log(this.props);
         this.props.updateSearchString(text);
-        // this.props.fetchSearchResults(text);
+        this.props.fetchSearchResults(text);
     };
 
     render() {
@@ -49,16 +41,4 @@ class SearchHeaderBar extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    searchString: state.searchReducer.searchString,
-});
-  
-const mapDispatchToProps = dispatch => {
-    return {
-        updateSearchString: (searchString) => {
-        dispatch(updateSearchString(searchString));
-        }
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchHeaderBar))
+export default withRouter(SearchHeader);
