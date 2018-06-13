@@ -41,7 +41,7 @@ class GenreContainer extends Component {
         let renderMovies;
         if ( this.props.movies ) {
             renderMovies = this.props.movies.map((movie) => (
-                <Image key={movie.id} poster_path={movie.poster_path}  />
+                <Image key={movie.id} movie={movie}  />
             ));
         }
         

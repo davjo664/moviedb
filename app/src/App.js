@@ -12,6 +12,7 @@ import HomeContainer from './container/HomeContainer';
 import List from './screens/List';
 
 import { BrowserRouter, Route } from 'react-router-dom'
+import Detail from './screens/Detail';
 
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
             <Route path="/" component={HomeContainer} exact /> {/*exact: Only render the component if the url is exact*/}
             <Route path="/search" component={SearchContainer} />
             <Route path="/list" component={List} />
+            <Route path="/detail" component={Detail} />
             {/* {this._renderFooterBar()} */}
           </div>
         </BrowserRouter>
