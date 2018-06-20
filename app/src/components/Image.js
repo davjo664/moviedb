@@ -12,10 +12,10 @@ class Image extends Component {
         this.imgPath = `https://image.tmdb.org/t/p/w300/${this.props.movie.poster_path}`;
 
         const windowWidth = window.innerWidth;
-        this.width = windowWidth/4;
+        this.width = this.props.widthDivider ? windowWidth / this.props.widthDivider : windowWidth/4;
         this.height = this.width*(4/3); //4:3 ratio
 
-        this.style = {
+        this.style = this.props.style ? this.props.style : {
             marginRight:10
         };
 

@@ -27,7 +27,7 @@ export default class SearchContainer extends GenreContainer {
         let renderMovies;
         if (this.props.results) {
             renderMovies = this.props.results.map((movie) => (
-                <Image key={movie.id} poster_path={movie.poster_path}  />
+                <Image key={movie.id} movie={movie}  />
             ));
         }
         
