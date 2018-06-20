@@ -1,29 +1,31 @@
 require('isomorphic-fetch');
 
-test('Should login user', (done) => {
-    var formData = new FormData();
+test('Should login user', () => {
+    var formData = new URLSearchParams();
+    var cookie;
     formData.append('username', 'test');
     formData.append('password', 'test');
 
-    fetch('http://localhost:3000/api/session/login', {
+    return fetch('http://localhost:3000/api/session/login', {
     method: 'POST',
-    body: formData
+    body: formData,
+    headers: {
+        "Content-Type":"application/x-www-form-urlencoded"
+    }
     })
     .then(response => {
-        console.log(1);
+        let cookies = response.headers.get('set-cookie');
+        cookie = cookies.substr(0, cookies.indexOf(';'))
+        expect(cookie.length > 0);
         expect(response.ok).toBeTruthy();
-        done();
     })
-})
-
-test('Should get users watchlist', (done) => {
-    fetch(`http://localhost:3000/api/watchlist`, {
-        method: 'GET',
-        credentials: 'include'
+    .then(() => {
+        return fetch(`http://localhost:3000/api/watchlist`, {
+            method: 'GET',
+            headers: { Cookie: cookie },
+        })
     })
     .then((response) => {
-        console.log(2);
         expect(response.ok).toBeTruthy();
-        done();
     })
 })
