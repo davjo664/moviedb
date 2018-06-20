@@ -17,7 +17,7 @@ router.post('/login', function(req, res, next){
 router.post('/logout', (req, res) => {
     // Passport logout
     req.logout();
-    res.redirect('/');
+    res.send();
 })
 
 export default router;

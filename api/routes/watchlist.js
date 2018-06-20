@@ -37,7 +37,6 @@ router.get('/', ensureAuthenticated, (req, res) => {
             console.log("Failed to find watchlist");
             res.json({});
         }
-        console.log(watchlist[0].movies);
         res.json(watchlist[0].movies);
     })
 });
