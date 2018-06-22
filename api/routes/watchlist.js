@@ -10,7 +10,7 @@ const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.status(403).json({ error: 'Not logged in' })
+        res.status(403).json({ error: req.headers })
     }
 }
 
@@ -21,8 +21,6 @@ router.post('/', ensureAuthenticated, (req, res) => {
 
     User.addMovieToWatchlist(watchlistObj, (err) => {
         if(err) {
-            console.log("Failed to add to watchlist");
-            console.log(err);
             res.send("error");
         } else {
             res.send("Added movie to watchlist");

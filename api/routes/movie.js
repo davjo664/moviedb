@@ -32,10 +32,10 @@ router.get('/', (req, res) => {
     // Get movies by genre sorted by rating
     // 20 per page. To get next page add &page=2
 
-    if (req.query.genre) {
+    if (req.query.genre && req.query.page) {
         let genre = req.query.genre;
         let genreId = genresMap.get(genre);
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${genreId}&sort_by=vote_average.desc`)
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${genreId}&page=${req.query.page}&sort_by=vote_average.desc`)
         .then((genreRes) => genreRes.json())
         .then((movies) => {
             res.json(movies);
