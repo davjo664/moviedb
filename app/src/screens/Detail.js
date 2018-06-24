@@ -3,14 +3,25 @@ import HeaderBar from '../components/HeaderBar';
 import FooterBar from '../components/FooterBar';
 import Image from '../components/Image';
 import '../Detail.css';
+import Typography from '@material-ui/core/Typography';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
 
 class Detail extends Component {
 
-constructor(props) {
-    super(props)
+    constructor(props) {
+        super(props)
 
-    console.log(this.props.location.movie)
-}
+        this.state = { isOnWatchlist: false, watched: false };
+        console.log(this.props.location.movie)
+    }
+
+    componentWillMount() {
+        let isOnWatchlist = true;
+        let watched = true;
+        this.setState({ isOnWatchlist, watched });
+    }
 
     render() {
         return (
@@ -18,17 +29,31 @@ constructor(props) {
                 <HeaderBar />
                 <div class="background">
                     <Image movie={this.props.location.movie} widthDivider={2} style={{display: 'block', margin: '10px auto'}} />
-                    <h1> {this.props.location.movie.title} </h1>
+                    <Typography variant="display1"> {this.props.location.movie.title} </Typography>
                     <div class="detailInfo">
-                        <p> <b>Overview: </b> <br/> {this.props.location.movie.overview} </p>
-                        <p> <b>Rating: </b> <br/> {this.props.location.movie.vote_average}/10 on average out of {this.props.location.movie.vote_count} votes </p>
-                        <p> <b>Realease Date: </b> <br/>{this.props.location.movie.release_date} </p>
+                        <Typography> <b>Overview: </b> <br/> {this.props.location.movie.overview} </Typography>
+                        <Typography> <b>Rating: </b> <br/> {this.props.location.movie.vote_average}/10 on average out of {this.props.location.movie.vote_count} votes </Typography>
+                        <Typography> <b>Realease Date: </b> <br/>{this.props.location.movie.release_date} </Typography>
                     </div>
+                    <Button 
+                        color= {this.state.isOnWatchlist ? "secondary" : "primary"}
+                        variant="contained" 
+                        style={style}
+                        // onClick={(event) => this.handleClick(event)}
+                        > {this.state.isOnWatchlist ? "Remove from" : "Add to"} watchlist</Button>
+                    <FormControlLabel control={<Checkbox
+                         checked={this.state.watched}
+                        //  onChange={this.handleChange('watched')}
+                         value="watched" />} label="watched?" />
                 </div>
                 <FooterBar />
             </div>
         )
     }
 }
+
+const style = {
+    margin: 15,
+};
 
 export default Detail;
