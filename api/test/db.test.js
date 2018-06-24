@@ -1,12 +1,14 @@
 require('isomorphic-fetch');
 
+import config from '../config/config'
+
 it('Should register user', async () => {
     var formData = new URLSearchParams();
     formData.append('username', 'test2');
     formData.append('password', 'test2');
 
     expect.assertions(1);
-    const response = await fetch('http://localhost:3000/api/user/register', {
+    const response = await fetch(config.api.url+'/user/register', {
         method: 'POST',
         body: formData,
         headers: {
@@ -24,7 +26,7 @@ it('Should login user', async () => {
     formData.append('password', 'test2');
 
     expect.assertions(1);
-    const response = await fetch('http://localhost:3000/api/session/login', {
+    const response = await fetch(config.api.url+'/session/login', {
         method: 'POST',
         body: formData,
         headers: {
@@ -43,7 +45,7 @@ it('Should add movie to user watchlist', async () => {
     formData.append('movieid', 12345);
 
     expect.assertions(1);
-    const response = await fetch('http://localhost:3000/api/watchlist', {
+    const response = await fetch(config.api.url+'/watchlist', {
         method: 'POST',
         body: formData,
         headers: { 
@@ -57,7 +59,7 @@ it('Should add movie to user watchlist', async () => {
 let movie;
 it('Should get user watchlist and it should contain 1 movie', async () => {
     expect.assertions(1);
-    const response = await fetch(`http://localhost:3000/api/watchlist`, {
+    const response = await fetch(config.api.url+`/watchlist`, {
         method: 'GET',
         headers: { Cookie: cookie },
     })
@@ -72,7 +74,7 @@ it('Should change the watchlist movie status to watched', async () => {
     formData.append('watched', true);
 
     expect.assertions(1);
-    const response = await fetch(`http://localhost:3000/api/watchlist/${movie}`, {
+    const response = await fetch(config.api.url+`/watchlist/${movie}`, {
         method: 'PUT',
         body: formData,
         headers: { 
@@ -85,7 +87,7 @@ it('Should change the watchlist movie status to watched', async () => {
 
 it('Should delete the watchlist movie', async () => {
     expect.assertions(1);
-    const response = await fetch(`http://localhost:3000/api/watchlist/${movie}`, {
+    const response = await fetch(config.api.url+`/watchlist/${movie}`, {
         method: 'DELETE',
         headers: { 
             Cookie: cookie,
@@ -96,7 +98,7 @@ it('Should delete the watchlist movie', async () => {
 
 it('Should unregister the user', async () => {
     expect.assertions(1);
-    const response = await fetch('http://localhost:3000/api/user/unregister', {
+    const response = await fetch(config.api.url+'/user/unregister', {
         method: 'POST',
         headers: { 
             Cookie: cookie,
@@ -107,7 +109,7 @@ it('Should unregister the user', async () => {
 
 it('Should get first 20 movies with genre Animation', async () => {
     expect.assertions(1);
-    const response = await fetch(`http://localhost:3000/api/movie?genre=Animation&page=1`, {
+    const response = await fetch(config.api.url+`/movie?genre=Animation&page=1`, {
         method: 'GET',
     })
     const data = await response.json();
@@ -116,7 +118,7 @@ it('Should get first 20 movies with genre Animation', async () => {
 
 it('Should get details about a specific movie', async () => {
     expect.assertions(1);
-    const response = await fetch(`http://localhost:3000/api/movie/318925`, {
+    const response = await fetch(config.api.url+`/movie/318925`, {
         method: 'GET',
     })
     expect(response.ok).toBeTruthy();
@@ -124,9 +126,57 @@ it('Should get details about a specific movie', async () => {
 
 it('Should get first 20 movies matching the search string', async () => {
     expect.assertions(1);
-    const response = await fetch(`http://localhost:3000/api/movie?search=Abba&page=1`, {
+    const response = await fetch(config.api.url+`/movie?search=Abba&page=1`, {
         method: 'GET',
     })
     const data = await response.json();
     expect(data.results).toHaveLength(20);
 });
+
+
+
+
+//Fetches for later
+// var formData = new URLSearchParams();
+//     formData.append('username', 'test2');
+//     formData.append('password', 'test2');
+
+//     let response = await fetch('http://localhost:3001/api/user/register', {
+//         method: 'POST',
+//         body: formData,
+//         credentials: "include",
+//         headers: {
+//             "Content-Type":"application/x-www-form-urlencoded"
+//         }
+//     });
+//     console.log(response);
+
+
+//     var formData = new URLSearchParams();
+//     formData.append('username', 'test2');
+//     formData.append('password', 'test2');
+
+//     const response2 = await fetch('http://localhost:3001/api/session/login', {
+//         method: 'POST',
+//         body: formData,
+//         credentials: "include",
+//         headers: {
+//             "Content-Type":"application/x-www-form-urlencoded",
+//         }
+//     });
+
+//     var formData = new URLSearchParams();
+//     formData.append('movieid', 12345);
+
+//      response = await fetch('http://localhost:3001/api/watchlist', {
+//         method: 'POST',
+//         body: formData,
+//         credentials: "include",
+//     });
+
+//      response = await fetch(`http://localhost:3001/api/watchlist`, {
+//         method: 'GET',
+//         credentials: "include",
+//     })
+//     const data = await response.json();
+//     console.log(data);

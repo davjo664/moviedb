@@ -1,6 +1,6 @@
 
+import config from '../../config/config';
 const apiKey = 'dc26abc8af32720ec9f3dc483dc521ae';
-
 export function updateSearchString(searchString: String) {
     return {
         type: 'UPDATE_SEARCH_STRING',
@@ -38,8 +38,8 @@ export function fetchSearchResults(searchString, page) {
         page = 1;
     }
     searchString = searchString.replace(/ /g, '+');
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchString}&page=${page}`;
-    return dispatch =>
+    const url = `${config.api.url}/movie?api_key=${apiKey}&search=${searchString}&page=${page}`;
+    return dispatch => 
     fetch(url)
         .then(res => res.json())
         .then(data => {

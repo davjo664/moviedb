@@ -20,6 +20,7 @@ import userRoute from './routes/user';
 import sessionRoute from './routes/session';
 import dbConfig from './config/database';
 import passportConfig from './config/passport';
+import config from './config/config';
 
 // Connect to Mongoose
 mongoose.connect(dbConfig.database);
@@ -51,12 +52,8 @@ app.use(morgan("common"));
 // Security middleware that handles several kinds of attacks in the HTTP/HTTPS protocols
 app.use(helmet()); 
 
-// Allow only access to endpoints from http://localhost:3000
-app.use(cors({  
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// Allow only access to endpoints from app url
+app.use(cors({credentials: true, origin: config.app.url}));
 
 // Express Session Middleware
 // Stored in application memory for now
@@ -83,5 +80,5 @@ app.use('/api/movie', movieRoute);
 app.use('/api/user', userRoute);
 app.use('/api/session', sessionRoute);
 
-app.listen(3000);
-console.log('Running on port 3000...');
+app.listen(3001);
+console.log('Running on port 3001...');
