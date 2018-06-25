@@ -1,7 +1,7 @@
 import config from './config';
 
 const dbConfig = {
-    database: `mongodb://${config.db.url}/moviedb`,
+    database: config.db.url,
     secret: 'topsecret'
 }
 
