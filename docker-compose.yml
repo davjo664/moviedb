@@ -5,6 +5,10 @@ services:
     build: ./app
     ports:
       - 8083:3000
+    links:
+        - api
+    depends_on:
+        - api
     networks:
       moviedb_network:
         aliases:
