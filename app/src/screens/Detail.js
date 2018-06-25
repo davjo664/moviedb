@@ -14,6 +14,8 @@ class Detail extends Component {
         super(props)
 
         this.state = { isOnWatchlist: false, watched: false };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         console.log(this.props.location.movie)
     }
 
@@ -21,6 +23,17 @@ class Detail extends Component {
         let isOnWatchlist = true;
         let watched = true;
         this.setState({ isOnWatchlist, watched });
+    }
+
+    handleClick() {
+        // do api call
+        const isOnWatchlist = !this.state.isOnWatchlist
+        this.setState({isOnWatchlist})
+    }
+
+    handleChange() {
+        const watched = !this.state.watched
+        this.setState({watched})
     }
 
     render() {
@@ -39,11 +52,11 @@ class Detail extends Component {
                         color= {this.state.isOnWatchlist ? "secondary" : "primary"}
                         variant="contained" 
                         style={style}
-                        // onClick={(event) => this.handleClick(event)}
+                        onClick={this.handleClick}
                         > {this.state.isOnWatchlist ? "Remove from" : "Add to"} watchlist</Button>
                     <FormControlLabel control={<Checkbox
                          checked={this.state.watched}
-                        //  onChange={this.handleChange('watched')}
+                         onChange={this.handleChange}
                          value="watched" />} label="watched?" />
                 </div>
                 <FooterBar />

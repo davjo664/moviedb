@@ -9,8 +9,9 @@ class List extends Component {
         super(props);
 
         // this.imgPath = `https://image.tmdb.org/t/p/w300/${this.props.movie.poster_path}`;
-        this.state = { movies: [] }
+        this.state = { movies: [], watched: true }
         // this.handleClick = this.handleClick.bind(this);
+        
     }
 
     componentWillMount() {
@@ -26,35 +27,47 @@ class List extends Component {
         })
     }
 
+    handleClick(movie) {
+        this.props.history.push({
+            pathname: "/detail",
+            movie: movie});
+    }
+
     render() {
         let renderMovies;
+        const watched = this.state.watched;
+
         if (this.state.movies) {
             renderMovies = this.state.movies.map((movie) => (
                 <div style={{width: (window.innerWidth-40)/3+10, 
                         float: 'left',
-                        position: 'relative'}} >
+                        position: 'relative'}} 
+                        onClick={this.handleClick.bind(this, movie)}>
                     <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} 
                         key={movie.id} movie={movie} 
                         style={{zIndex: 0,
                             width: (window.innerWidth-40)/3, 
                             height: (window.innerWidth-40)*4/9, 
                             margin: 5}} />
-                    <div style={{zIndex:2, position: 'absolute',
-                            width: (window.innerWidth-40)/6, 
-                            height: (window.innerWidth-40)/6, 
-                            margin: 5, 
-                            left: (window.innerWidth-40)/12,
-                            top: (window.innerWidth-40)*2/9-(window.innerWidth-40)/12,
-                            background: 'rgba(0, 0, 0, 0.5)'}} > 
-                        <img src="https://png.icons8.com/material/96/ffffff/checkmark.png" 
-                            style={{width: (window.innerWidth-40)/6, 
+                    { watched ? (
+                        <div style={{zIndex:2, position: 'absolute',
+                                width: (window.innerWidth-40)/6, 
+                                height: (window.innerWidth-40)/6, 
+                                margin: 5, 
+                                left: (window.innerWidth-40)/12,
+                                top: (window.innerWidth-40)*2/9-(window.innerWidth-40)/12,
+                                background: 'rgba(0, 0, 0, 0.5)'}} > 
+                            <img src="https://png.icons8.com/material/96/ffffff/checkmark.png" 
+                                style={{width: (window.innerWidth-40)/6, 
                                 height: (window.innerWidth-40)/6}}/>
-                    </div>
+                        </div>
+                    ) : (
+                        <div/>
+                    )}
+                    
                 </div>
             ));
         }
-        
-        
 
         return (
             <div>
