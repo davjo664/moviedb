@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 import HeaderBar from '../components/HeaderBar'
 import FooterBar from '../components/FooterBar'
 import Image from '../components/Image'
+
 
 class List extends Component {
 
@@ -11,11 +13,11 @@ class List extends Component {
         // this.imgPath = `https://image.tmdb.org/t/p/w300/${this.props.movie.poster_path}`;
         this.state = { movies: [], watched: true }
         // this.handleClick = this.handleClick.bind(this);
-        
+
     }
 
     componentWillMount() {
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${28}&sort_by=vote_average.desc&page=${3}`)
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${28}&sort_by=vote_average.desc&page=${1}`)
         .then((res) => res.json())
         .then((data) => {
             if (data.statusCode && data.statusCode != 200) {
@@ -24,6 +26,7 @@ class List extends Component {
                 let movies = data.results
                 this.setState( {movies} );
             }
+
         })
     }
 
@@ -31,6 +34,10 @@ class List extends Component {
         this.props.history.push({
             pathname: "/detail",
             movie: movie});
+    }
+
+    handleLogout() {
+        // switch to login screen
     }
 
     render() {
@@ -48,9 +55,10 @@ class List extends Component {
                         style={{zIndex: 0,
                             width: (window.innerWidth-40)/3, 
                             height: (window.innerWidth-40)*4/9, 
-                            margin: 5}} />
+                            margin: 5,
+                            boxShadow: '0px 2px 8px rgba(0,0,0,0.5)'}} />
                     { watched ? (
-                        <div style={{zIndex:2, position: 'absolute',
+                        <div style={{position: 'absolute',
                                 width: (window.innerWidth-40)/6, 
                                 height: (window.innerWidth-40)/6, 
                                 margin: 5, 
@@ -75,12 +83,37 @@ class List extends Component {
                     <div style={{position: 'relative'}}>
                         <div id={this.props.genre} style={{ overflow: 'scroll', padding: 5, height: window.innerHeight - 120}}> 
                             {renderMovies}
+                            {/* <div style={{width: window.innerWidth}}>
+                                <Button
+                                    color="secondary"
+                                    variant="contained"
+                                    style={style}
+                                    onClick={this.handleLogout}
+                                    > Logout </Button>
+                            </div> */}
                         </div>
+                    </div>
+                    <div style={{position: 'absolute',
+                            width: window.innerWidth,
+                            bottom: 65,
+                            display: 'flex',
+                            justifyContent: 'center'}}>
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            style={style}
+                            onClick={this.handleLogout}
+                            > Logout </Button>
                     </div>
                 <FooterBar />
             </div>
         )
     }
 }
+
+const style = {
+    margin: 5,
+    width: (window.innerWidth * 0.5)
+};
 
 export default List;

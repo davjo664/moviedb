@@ -16,7 +16,8 @@ class Image extends Component {
         this.height = this.width*(4/3); //4:3 ratio
 
         this.style = this.props.style ? this.props.style : {
-            marginRight:10
+            marginRight:10,
+            boxShadow: '0px 3px 10px rgba(0,0,0,0.7)',
         };
 
         this.state = {
@@ -42,7 +43,14 @@ class Image extends Component {
       
     render() {
         if (!this.state.error) {
-            return <img className={this.state.loading ? 'loading' : ''} src={this.imgPath} onLoad={() => this.onLoad()} onError={() => this.onError()} width={this.width} height={this.height} style={this.style} onClick={this.handleClick.bind(this)} />
+            return <img className={this.state.loading ? 'loading' : ''} 
+                    src={this.imgPath} 
+                    onLoad={() => this.onLoad()} 
+                    onError={() => this.onError()} 
+                    width={this.width} 
+                    height={this.height} 
+                    style={this.style} 
+                    onClick={this.handleClick.bind(this)} />
         }
         return null;
     }

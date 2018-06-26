@@ -48,7 +48,7 @@ class Home extends Component {
         return (
             <div style={{overflow: 'hidden'}}>
                 <h4 style={{marginLeft: 10, marginBottom: 4}}> {genre} </h4>
-                <div style={{height: window.innerWidth/4*(4/3)}}>
+                <div id="GenreContainerinside"style={{height: window.innerWidth/4*(4/3) + 10}}>
                     <GenreContainer genre={genre} movies={this.props.movies[genre]} fetchMoviesByGenre={this.props.fetchMoviesByGenre} isLoading={this.props.isLoading} setLoading={this.props.setLoading} />
                 </div>
             </div>
