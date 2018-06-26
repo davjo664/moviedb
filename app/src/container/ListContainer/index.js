@@ -21,8 +21,6 @@ class ListContainer extends Component {
         } else {
           res.json().then((data) => {
             if (data) {
-                console.log("SUCCESS");
-                console.log(data);
                 this.props.history.push({
                   pathname: "/detail",
                   movie: data});
