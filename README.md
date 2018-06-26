@@ -12,5 +12,16 @@ List: You can see your personal watchlist and keep track of seen movies and movi
 
 Detail: You can see an overview and the rating of the movie. In this page you can add or remove a movie to or from the watchlist and mark it as "watched".
 
+Search: You can search for movies.
+
+The content is provided by themoviedb.org.
+
 # Setup and install instructions:
-// TODO
+
+### Prerequisites:
+* NodeJS
+* npm
+* Docker
+
+### Run this inside the project folder
+docker-compose up
