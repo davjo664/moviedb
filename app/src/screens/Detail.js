@@ -34,8 +34,7 @@ class Detail extends Component {
         return (
             <div>
                 <DetailHeader />
-                <div class="background" style={{background: 'linear-gradient(to bottom, rgba(241, 241, 241, 1), rgba(201, 201, 201, 1))',
-                        height: window.innerHeight - 75 }} >
+                <div class="background" style={{height: window.innerHeight - 75 }} >
                     <Image movie={this.props.movie} widthDivider={2} style={{display: 'block', margin: '10px auto', boxShadow: '0px 3px 10px rgba(0,0,0,0.7)'}} />
                     <Card>
                         <CardContent>
