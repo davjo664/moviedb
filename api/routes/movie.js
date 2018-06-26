@@ -40,7 +40,10 @@ router.get('/', (req, res) => {
         .then((movies) => {
             res.json(movies);
         })
-    } else if (req.query.search && req.query.page) {
+    } else if (req.query.search != null && req.query.page) {
+        if (!req.query.search) {
+            res.json([]);
+        }
         const url = `https://api.themoviedb.org/3/search/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&query=${req.query.search}&page=${req.query.page}`;
         fetch(url)
         .then((searchRes) => searchRes.json())
