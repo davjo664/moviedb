@@ -23,7 +23,7 @@ class List extends Component {
     }
 
     handleLogout() {
-        // switch to login screen
+        this.props.logOut(this.props.history);
     }
 
     render() {
@@ -66,7 +66,7 @@ class List extends Component {
                 <HeaderBar />
                     <div style={{position: 'relative'}}>
                         <div id={this.props.genre} style={{ overflow: 'scroll', padding: 5, height: window.innerHeight - 120}}> 
-                            {renderMovies}
+                            {renderMovies.length > 0 ? renderMovies : 'No movies added to Watchlist'}
                         </div>
                     </div>
                     <div style={{position: 'absolute',
@@ -78,7 +78,7 @@ class List extends Component {
                             color="secondary"
                             variant="contained"
                             style={style}
-                            onClick={this.handleLogout}
+                            onClick={this.handleLogout.bind(this)}
                             > Logout </Button>
                     </div>
                 <FooterBar />
