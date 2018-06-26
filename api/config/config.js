@@ -51,7 +51,7 @@ const config = {
       },
       live: {
         protocol: 'mongodb',
-        host: 'localhost',
+        host: 'mongodb',
         port: 27017,
         name: 'moviedb'
       },
