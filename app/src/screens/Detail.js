@@ -15,14 +15,7 @@ class Detail extends Component {
     constructor(props) {
         super(props)
     }
-
-    // componentWillMount() {
-    //     if (this.props.movie.movieid == null) {
-    //         //Came from Home screen, have to check if added in watchlist
-    //         this.props.checkWatchlist(this.props.movie.id);
-    //     }
-    // }
-
+    
     handleClick() {
         // do api call
         if (this.props.movie._id) {

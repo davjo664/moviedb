@@ -74,15 +74,7 @@ addToWatchlist(movie) {
         } else {
           res.json().then((watchlistMovie) => {
             if (watchlistMovie) {
-             console.log("ADDED");
-             console.log(watchlistMovie); 
-            this.setState({movie: watchlistMovie})
-                // var watchlistMovie = data.find(function(element) {
-                //     return element.movieid == movieId;
-                // });
-                // if (watchlistMovie) {
-                //   this.setState({movie: watchlistMovie})
-                // }
+                this.setState({movie: watchlistMovie})
             }
         })
         }
