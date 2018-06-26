@@ -8,8 +8,9 @@ import 'typeface-roboto'
 import store from './store'
 import SearchContainer from './container/SearchContainer';
 import HomeContainer from './container/HomeContainer';
-import List from './screens/List';
-import Login from './screens/Login';
+import ListContainer from './container/ListContainer';
+import LoginContainer from './container/LoginContainer';
+import DetailContainer from './container/DetailContainer';
 
 import { BrowserRouter, Route } from 'react-router-dom'
 import Detail from './screens/Detail';
@@ -32,9 +33,9 @@ class App extends Component {
             {/* {this._renderHeaderBar()} */}
             <Route path="/" component={HomeContainer} exact /> {/*exact: Only render the component if the url is exact*/}
             <Route path="/search" component={SearchContainer} />
-            <Route path="/list" component={List} />
-            <Route path="/detail" component={Detail} />
-            <Route path="/login" component={Login} />
+            <Route path="/list" component={ListContainer} />
+            <Route path="/detail" component={DetailContainer} />
+            <Route path="/login" component={LoginContainer} />
             {/* {this._renderFooterBar()} */}
           </div>
         </BrowserRouter>

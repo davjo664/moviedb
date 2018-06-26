@@ -20,6 +20,14 @@ class Login extends Component {
         }
     }
 
+    handleLogin = (event) => {
+        this.props.loginUser(this.state.username, this.state.password, this.props.history);
+    }
+
+    handleRegister = (event) => {
+        this.props.registerUser(this.state.username, this.state.password, this.props.history);
+    }
+
     render() {
         return (
             <div style={{ padding: 20,
@@ -34,7 +42,7 @@ class Login extends Component {
                             id="username"
                             label="Username"
                             margin="normal"
-                            onChange = {(event,newValue) => this.setState({username:newValue})}
+                            onChange = {(event) => this.setState({username:event.target.value})}
                         />
                         <br/>
                         <TextField
@@ -42,21 +50,21 @@ class Login extends Component {
                             label="Password"
                             type="password"
                             margin="normal"
-                            onChange = {(event,newValue) => this.setState({password:newValue})}
+                            onChange = {(event) => this.setState({password:event.target.value})}
                         />
                         <br/>
                         <Button 
                             color="primary"
                             variant="contained" 
                             style={style}
-                            onClick={(event) => this.handleClick(event)}
+                            onClick={this.handleLogin.bind(this)}
                             >Login</Button>
                         <br/>
                         <Button 
                             color="secondary"
                             variant="contained" 
                             style={style}
-                            onClick={(event) => this.handleClick(event)}
+                            onClick={this.handleRegister.bind(this)}
                             >Register</Button>
                         </div>
                     </CardContent>

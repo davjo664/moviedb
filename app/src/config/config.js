@@ -1,6 +1,6 @@
 const config = {
     api: {
-      devEnabled: false,
+      devEnabled: true,
   
       dev: {
         protocol: 'http',

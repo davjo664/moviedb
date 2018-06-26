@@ -18,12 +18,11 @@ const ensureAuthenticated = (req, res, next) => {
 router.post('/', ensureAuthenticated, (req, res) => {
     let watchlistObj = req.body;
     watchlistObj.userid = req.user._id;
-
-    User.addMovieToWatchlist(watchlistObj, (err) => {
+    User.addMovieToWatchlist(watchlistObj, (err, user) => {
         if(err) {
-            res.send("error");
+            res.send(err);
         } else {
-            res.send("Added movie to watchlist");
+            res.json(user.movies[user.movies.length-1]);
         }
 
     })

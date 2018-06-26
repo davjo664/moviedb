@@ -13,11 +13,15 @@ class List extends Component {
         // this.imgPath = `https://image.tmdb.org/t/p/w300/${this.props.movie.poster_path}`;
         this.state = { movies: [], watched: true }
         // this.handleClick = this.handleClick.bind(this);
-
+        console.log("LIST");
+        console.log(this.props.movie);
+        
     }
 
     componentWillMount() {
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${28}&sort_by=vote_average.desc&page=${1}`)
+        console.log("DID MOUNT");
+        this.props.fetchMovies(this.props.history);
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${28}&sort_by=vote_average.desc&page=${3}`)
         .then((res) => res.json())
         .then((data) => {
             if (data.statusCode && data.statusCode != 200) {
@@ -34,6 +38,7 @@ class List extends Component {
         this.props.history.push({
             pathname: "/detail",
             movie: movie});
+        // this.props.fetchMovieDetail(movie, this.props.history);
     }
 
     handleLogout() {
@@ -42,10 +47,10 @@ class List extends Component {
 
     render() {
         let renderMovies;
-        const watched = this.state.watched;
+        // const watched = this.state.movies;
 
-        if (this.state.movies) {
-            renderMovies = this.state.movies.map((movie) => (
+        if (this.props.movies) {
+            renderMovies = this.props.movies.map((movie) => (
                 <div style={{width: (window.innerWidth-40)/3+10, 
                         float: 'left',
                         position: 'relative'}} 
@@ -57,7 +62,7 @@ class List extends Component {
                             height: (window.innerWidth-40)*4/9, 
                             margin: 5,
                             boxShadow: '0px 2px 8px rgba(0,0,0,0.5)'}} />
-                    { watched ? (
+                    { movie.watched ? (
                         <div style={{position: 'absolute',
                                 width: (window.innerWidth-40)/6, 
                                 height: (window.innerWidth-40)/6, 

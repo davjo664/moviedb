@@ -1,6 +1,6 @@
 const config = {
     api: {
-      devEnabled: false,
+      devEnabled: true,
   
       dev: {
         protocol: 'http',
@@ -21,7 +21,7 @@ const config = {
       }
     },
     app: {
-      devEnabled: false,
+      devEnabled: true,
 
       dev: {
         protocol: 'http',
@@ -41,7 +41,7 @@ const config = {
 
     },
     db: {
-      devEnabled: false,
+      devEnabled: true,
 
       dev: {
         protocol: 'mongodb',

@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
     // and include key to youtube trailers https://www.youtube.com/watch?v=SUXWAEX2jlg
     let movieId = req.params.id;
     
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=dc26abc8af32720ec9f3dc483dc521ae&append_to_response=videos`)
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=dc26abc8af32720ec9f3dc483dc521ae`)
     .then((movieRes) => movieRes.json())
     .then((movie) => {
         let movieTitle = movie.title;
@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
     if (req.query.genre && req.query.page) {
         let genre = req.query.genre;
         let genreId = genresMap.get(genre);
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${genreId}&page=${req.query.page}&sort_by=vote_average.desc`)
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=dc26abc8af32720ec9f3dc483dc521ae&with_genres=${genreId}&page=${req.query.page}&sort_by=popularity.desc&vote_count.gte=100`)
         .then((genreRes) => genreRes.json())
         .then((movies) => {
             res.json(movies);

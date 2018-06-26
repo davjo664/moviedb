@@ -9,7 +9,31 @@ export const movieSchema = mongoose.Schema({
     watched: {
         type: Boolean,
         default: false
-    }
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    overview: {
+        type: String,
+        required: true
+    },
+    vote_average: {
+        type: String,
+        required: true
+    },
+    vote_count: {
+        type: String,
+        required: true
+    },
+    release_date: {
+        type: String,
+        required: true
+    },
+    poster_path: {
+        type: String,
+        required: true
+    },
 })
 
 // User schema
@@ -57,7 +81,7 @@ User.deleteUser = (req, callback) => {
 User.addMovieToWatchlist = (watchlistObj, callback) => {
     User.findById(watchlistObj.userid)
     .then((user) => {
-        user.movies.push({movieid: watchlistObj.movieid});
+        user.movies.push(watchlistObj);
         return user.save(callback);
     })
 }
@@ -68,6 +92,8 @@ User.getWatchlist = (userId, callback) => {
 
 User.updateWatchlistMovie = (req, callback) => {
     let watchlistObj = req.body;
+    console.log("UPDATE");
+    console.log(req.body);
     User.findById(req.user._id)
     .then((user) => {
         const movie = user.movies.id(req.params.id);
@@ -79,6 +105,8 @@ User.updateWatchlistMovie = (req, callback) => {
 User.deleteWatchlistMovie = (req, callback) => {
     User.findById(req.user._id)
     .then((user) => {
+        console.log("DELETE");
+        console.log(req.params.id);
         user.movies.id(req.params.id).remove();
         return user.save(callback);
     })
