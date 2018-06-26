@@ -52,12 +52,16 @@ class Detail extends Component {
                                 style={style}
                                 onClick={this.handleClick.bind(this)}
                                 > {this.props.movie.movieid ? "Remove from" : "Add to"} list</Button>
-                            <FormControlLabel control={<Checkbox
-                                checked={this.props.movie.watched}
-                                onChange={this.handleChange.bind(this)}
-                                value="watched" 
-                                style={{display: this.props.movie.movieid ? 'block' : 'none', margin:5}}
-                                />} label={this.props.movie.movieid ? "watched?" : ""} />
+                            { this.props.movie.movieid && 
+                                <FormControlLabel control={<Checkbox
+                                    checked={this.props.movie.watched}
+                                    onChange={this.handleChange.bind(this)}
+                                    value="watched" 
+                                    // style={{display: this.props.movie.movieid ? 'inline-block' : 'none', margin:5}}
+                                    // style={style}
+                                    />} label={this.props.movie.movieid ? "watched?" : ""} />
+                            }
+                            
                         </CardContent>
                     </Card>
                 </div>
