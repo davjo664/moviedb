@@ -10,27 +10,40 @@ import List from '../../screens/List';
 
 class ListContainer extends Component {
 
-  fetchMovieDetail = (movieId, history) => {
-    fetch(config.api.url+`/movie/`+movieId, {
-      method: 'GET',
-    })
-    .then((res) => {
-        console.log(res)
-        if (!res.ok) {
-          console.log("ERROR:",res.statusText)
-        } else {
-          res.json().then((data) => {
-            if (data) {
-                console.log("SUCCESS");
-                console.log(data);
-                this.props.history.push({
-                  pathname: "/detail",
-                  movie: data});
-            }
-          })
-        }
-    })
-  }
+    fetchMovieDetail = (movieId, history) => {
+      fetch(config.api.url+`/movie/`+movieId, {
+        method: 'GET',
+      })
+      .then((res) => {
+          console.log(res)
+          if (!res.ok) {
+            console.log("ERROR:",res.statusText)
+          } else {
+            res.json().then((data) => {
+              if (data) {
+                  this.props.history.push({
+                    pathname: "/detail",
+                    movie: data});
+              }
+            })
+          }
+      })
+    }
+
+    logOut = (history) => {
+      fetch(`${config.api.url}/session/logout`, {
+        method: 'POST',
+        credentials: "include",
+      })
+      .then((res) => {
+          console.log(res)
+          if (!res.ok) {
+            console.log("ERROR:",res.statusText)
+          } else {
+            this.props.history.push('/login');
+          }
+      })
+    }
 
     render() {
       return (
@@ -39,6 +52,7 @@ class ListContainer extends Component {
           fetchMovies={this.props.fetchMovies}
           history={this.props.history}
           fetchMovieDetail={this.fetchMovieDetail}
+          logOut={this.logOut}
         />
       );
     }

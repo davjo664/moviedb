@@ -37,7 +37,7 @@ class Login extends Component {
                 <Card style={{ marginTop: window.innerHeight / 6 }}>
                     <CardContent>
                         <div align="center">
-                        <Typography align="center" variant="display3">MovieDB</Typography>
+                        <Typography align="center" variant="display3">movieDB</Typography>
                         <TextField
                             id="username"
                             label="Username"

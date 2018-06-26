@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HeaderBar from '../components/HeaderBar';
+import DetailHeader from '../components/DetailHeader';
 import FooterBar from '../components/FooterBar';
 import Image from '../components/Image';
 import '../Detail.css';
@@ -15,7 +15,7 @@ class Detail extends Component {
     constructor(props) {
         super(props)
     }
-    
+
     handleClick() {
         // do api call
         if (this.props.movie._id) {
@@ -33,9 +33,9 @@ class Detail extends Component {
         console.log(this.props.movie.movieid);
         return (
             <div>
-                <HeaderBar />
+                <DetailHeader />
                 <div class="background" style={{background: 'linear-gradient(to bottom, rgba(241, 241, 241, 1), rgba(201, 201, 201, 1))',
-                        height: window.innerHeight - 135 }} >
+                        height: window.innerHeight - 75 }} >
                     <Image movie={this.props.movie} widthDivider={2} style={{display: 'block', margin: '10px auto', boxShadow: '0px 3px 10px rgba(0,0,0,0.7)'}} />
                     <Card>
                         <CardContent>
@@ -65,7 +65,6 @@ class Detail extends Component {
                         </CardContent>
                     </Card>
                 </div>
-                <FooterBar />
             </div>
         )
     }
