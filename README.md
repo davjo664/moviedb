@@ -25,3 +25,6 @@ The content is provided by themoviedb.org.
 
 ### Run this inside the project folder
 docker-compose up
+
+### Access the app
+See the app on localhost:8083

@@ -1,6 +1,6 @@
 const config = {
     api: {
-      devEnabled: true,
+      devEnabled: false,
   
       dev: {
         protocol: 'http',
@@ -10,7 +10,7 @@ const config = {
       },
       live: {
         protocol: 'http',
-        host: 'api',
+        host: 'localhost',
         port: 8084,
         path: 'api',
       },
@@ -21,7 +21,7 @@ const config = {
       }
     },
     app: {
-      devEnabled: true,
+      devEnabled: false,
 
       dev: {
         protocol: 'http',
@@ -30,7 +30,7 @@ const config = {
       },
       live: {
         protocol: 'http',
-        host: 'app',
+        host: 'localhost',
         port: 8083,
       },
   
@@ -41,7 +41,7 @@ const config = {
 
     },
     db: {
-      devEnabled: true,
+      devEnabled: false,
 
       dev: {
         protocol: 'mongodb',
@@ -51,7 +51,7 @@ const config = {
       },
       live: {
         protocol: 'mongodb',
-        host: 'mongodb',
+        host: 'localhost',
         port: 27017,
         name: 'moviedb'
       },

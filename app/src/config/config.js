@@ -1,6 +1,6 @@
 const config = {
     api: {
-      devEnabled: true,
+      devEnabled: false,
   
       dev: {
         protocol: 'http',
@@ -10,7 +10,7 @@ const config = {
       },
       live: {
         protocol: 'http',
-        host: 'api',
+        host: 'localhost',
         port: 8084,
         path: 'api',
       },
