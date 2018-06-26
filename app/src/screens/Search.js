@@ -14,7 +14,7 @@ class Search extends Component {
                 />
                 <div style={{overflow: 'hidden'}}>
                     <h4 style={{marginLeft: 10, marginBottom: 4}}> Search </h4>
-                    <div style={{height: window.innerWidth/4*(4/3)}}>
+                    <div style={{height: window.innerWidth/4*(4/3) + 10}}>
                         <SearchContainer 
                         genre='search' 
                         results={this.props.results}
