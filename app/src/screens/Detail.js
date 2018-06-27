@@ -29,7 +29,7 @@ class Detail extends Component {
         return (
             <div>
                 <DetailHeader />
-                <div style={{height: window.innerHeight - 75 }} >
+                <div className="background" style={{height: window.innerHeight - 75, padding: 10 }} >
                     <Image movie={this.props.movie} widthDivider={2} style={{display: 'block', margin: '10px auto', boxShadow: '0px 3px 10px rgba(0,0,0,0.7)'}} />
                     <Card>
                         <CardContent>
