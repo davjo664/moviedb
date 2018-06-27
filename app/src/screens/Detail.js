@@ -34,16 +34,16 @@ class Detail extends Component {
         return (
             <div>
                 <DetailHeader />
-                <div class="background" style={{height: window.innerHeight - 75 }} >
+                <div className="background" style={{height: window.innerHeight - 75 }} >
                     <Image movie={this.props.movie} widthDivider={2} style={{display: 'block', margin: '10px auto', boxShadow: '0px 3px 10px rgba(0,0,0,0.7)'}} />
                     <Card>
                         <CardContent>
-                            <Typography variant="display1"> {this.props.movie.title} </Typography>
+                            <Typography variant="display1">{this.props.movie.title}</Typography>
                             {/* <Image movie={this.props.location.movie} widthDivider={2} style={{display: 'block', margin: '10px auto'}} /> */}
-                            <div class="detailInfo">
-                                <Typography> <b>Overview: </b> <br/> {this.props.movie.overview} </Typography>
-                                <Typography> <b>Rating: </b> <br/> {this.props.movie.vote_average}/10 on average out of {this.props.movie.vote_count} votes </Typography>
-                                <Typography> <b>Realease Date: </b> <br/>{this.props.movie.release_date} </Typography>
+                            <div className="detailInfo">
+                                <Typography> <b>Overview: </b> <br/> <h4 style={{color: 'grey'}}>{this.props.movie.overview}</h4> </Typography>
+                                <Typography> <b>Rating: </b> <br/> <h4 style={{color: 'grey'}}>{this.props.movie.vote_average}/10 on average out of {this.props.movie.vote_count} votes</h4> </Typography>
+                                <Typography> <b>Realease Date: </b> <br/> <h4 style={{color: 'grey'}}>{this.props.movie.release_date}</h4> </Typography>
                             </div>
                             <Button 
                                 color= {this.props.movie.movieid ? "secondary" : "primary"}

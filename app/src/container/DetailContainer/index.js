@@ -10,7 +10,8 @@ class DetailContainer extends Component {
   constructor(props) {
     super(props);
     console.log("CONSTRUCTOR");
-    this.state = {movie: props.location.movie};
+    // props.movie is only passed in from Detail.test.js
+    this.state = {movie: props.movie ? props.movie : props.location.movie};
   }
 
   componentWillMount() {
