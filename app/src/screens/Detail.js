@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DetailHeader from '../components/DetailHeader';
-import FooterBar from '../components/FooterBar';
 import Image from '../components/Image';
 import '../Detail.css';
 import Typography from '@material-ui/core/Typography';
@@ -11,10 +10,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 class Detail extends Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     handleClick() {
         // do api call
@@ -55,12 +50,9 @@ class Detail extends Component {
                                 <FormControlLabel control={<Checkbox
                                     checked={this.props.movie.watched}
                                     onChange={this.handleChange.bind(this)}
-                                    value="watched" 
-                                    // style={{display: this.props.movie.movieid ? 'inline-block' : 'none', margin:5}}
-                                    // style={style}
+                                    value="watched"
                                     />} label={this.props.movie.movieid ? "watched?" : ""} />
                             }
-                            
                         </CardContent>
                     </Card>
                 </div>

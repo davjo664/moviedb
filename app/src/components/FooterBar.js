@@ -7,10 +7,6 @@ import { withRouter } from 'react-router-dom'
 
 class LabelBottomNavigation extends React.Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   handleChange = (event, value) => {
     this.props.history.push(value);
   };

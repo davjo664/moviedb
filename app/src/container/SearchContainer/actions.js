@@ -1,7 +1,7 @@
 
 import config from '../../config/config';
 const apiKey = 'dc26abc8af32720ec9f3dc483dc521ae';
-export function updateSearchString(searchString: String) {
+export function updateSearchString(searchString) {
     return {
         type: 'UPDATE_SEARCH_STRING',
         searchString,
@@ -43,7 +43,7 @@ export function fetchSearchResults(searchString, page) {
     fetch(url)
         .then(res => res.json())
         .then(data => {
-        if (data.statusCode && data.statusCode != 200) {
+        if (data.statusCode && data.statusCode !== 200) {
             console.log(data.message);
         } else {
             if (page === 1) {

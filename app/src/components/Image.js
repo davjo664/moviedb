@@ -1,8 +1,6 @@
-import imageFile from '../loading.gif'
 // Component to hide movies without poster image
 
 import React, { Component } from 'react';
-import { Button } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 
 class Image extends Component {
@@ -44,7 +42,8 @@ class Image extends Component {
     render() {
         if (!this.state.error) {
             return <img className={this.state.loading ? 'loading' : ''} 
-                    src={this.imgPath} 
+                    src={this.imgPath}
+                    alt={'Movie Poster'}
                     onLoad={() => this.onLoad()} 
                     onError={() => this.onError()} 
                     width={this.width} 
