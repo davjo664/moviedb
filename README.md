@@ -26,7 +26,7 @@ The content is provided by themoviedb.org.
 ### Run this inside the project folder
 docker-compose up
 
-With tests:
+With unit and ui tests:
 docker-compose -f docker-compose.test.yml up 
 
 ### Access the app
