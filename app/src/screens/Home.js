@@ -4,8 +4,8 @@ import GenreContainer from '../components/GenreContainer'
 import HeaderBar from '../components/HeaderBar'
 import FooterBar from '../components/FooterBar'
 
-const initialGenres = ["Drama","Action","Fantasy", "Crime"];
-const allGenres = ["Drama","Action","Fantasy", "Crime", "Adventure", "Animation", "Horror", "Western", "Comedy"];
+const initialGenres = ["Drama","Action","Fantasy", "Crime", "Adventure", "Animation", "Horror", "Western", "Comedy"];
+const allGenres = ["Drama","Action","Fantasy", "Crime", "Adventure", "Animation", "Horror", "Western", "Comedy", "Documentary", "Family", "Music"];
 
 class Home extends Component {
 

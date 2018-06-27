@@ -37,7 +37,7 @@ export default class SearchContainer extends GenreContainer {
                         paddingRight: 20, 
                         marginLeft: 10, 
                         height: window.innerWidth/4*(4/3) + 10}}> 
-                    {renderMovies && renderMovies.length > 0 ? renderMovies : "No movies found"}
+                    {renderMovies && renderMovies.length > 0 ? renderMovies : <h4 style={{color:'grey'}}>No movies found</h4>}
                 </div>
             </div>
         )

@@ -63,7 +63,7 @@ class List extends Component {
                 <HeaderBar />
                     <div style={{position: 'relative'}}>
                         <div id={this.props.genre} style={{ overflow: 'scroll', padding: 5, height: window.innerHeight - 120}}> 
-                            {renderMovies.length > 0 ? renderMovies : 'No movies added to Watchlist'}
+                            {renderMovies.length > 0 ? renderMovies : <h1 style={{marginTop: 40, color:'grey'}}>No movies added to Watchlist</h1>}
                         </div>
                     </div>
                     <div style={{position: 'absolute',
