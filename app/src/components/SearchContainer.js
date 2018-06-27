@@ -1,16 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import Image from './Image'
-
-
 import GenreContainer from './GenreContainer';
-import { fetchSearchResults, setLoading } from '../container/SearchContainer/actions';
 
 export default class SearchContainer extends GenreContainer {
-
-    constructor(props) {
-        super(props);
-    }
 
     componentWillMount() {
 

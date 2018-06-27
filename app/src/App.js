@@ -12,7 +12,6 @@ import LoginContainer from './container/LoginContainer';
 import DetailContainer from './container/DetailContainer';
 
 import { BrowserRouter, Route } from 'react-router-dom'
-import Detail from './screens/Detail';
 
 
 class App extends Component {

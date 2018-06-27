@@ -9,13 +9,9 @@ const allGenres = ["Drama","Action","Fantasy", "Crime", "Adventure", "Animation"
 
 class Home extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         document.getElementById('home').addEventListener('scroll', this.handleScroll.bind(this));
-        if (this.props.genres.length == 0) {
+        if (this.props.genres.length === 0) {
             // Load inital genres
             initialGenres.forEach((genre) => {
                 this.props.fetchMoviesByGenre(genre, 1);
@@ -48,7 +44,7 @@ class Home extends Component {
         return (
             <div style={{overflow: 'hidden'}}>
                 <h4 style={{marginLeft: 10, marginBottom: 4}}> {genre} </h4>
-                <div id="GenreContainerinside"style={{height: window.innerWidth/4*(4/3) + 10}}>
+                <div style={{height: window.innerWidth/4*(4/3) + 10}}>
                     <GenreContainer genre={genre} movies={this.props.movies[genre]} fetchMoviesByGenre={this.props.fetchMoviesByGenre} isLoading={this.props.isLoading} setLoading={this.props.setLoading} />
                 </div>
             </div>

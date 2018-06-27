@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import config from '../../config/config';
-import { connect } from 'react-redux';
 
 import Detail from '../../screens/Detail';
 
@@ -28,7 +27,7 @@ class DetailContainer extends Component {
     })
     .then((res) => {
         if (!res.ok) {
-            if (res.status == 403) {
+            if (res.status === 403) {
                 //Not logged in
                 console.log("NOT LOGGED IN");
             } else {
@@ -38,7 +37,7 @@ class DetailContainer extends Component {
             res.json().then((data) => {
                 if (data) {
                     var watchlistMovie = data.find(function(element) {
-                        return element.movieid == movieId;
+                        return element.movieid === movieId;
                     });
                     if (watchlistMovie) {
                       this.setState({movie: watchlistMovie})
@@ -65,7 +64,7 @@ addToWatchlist(movie) {
     })
     .then((res) => {
         if (!res.ok) {
-          if (res.status == 403) {
+          if (res.status === 403) {
             //Not logged in
             this.props.history.replace('/login');
           } else {

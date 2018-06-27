@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import HeaderBar from '../components/HeaderBar'
-import FooterBar from '../components/FooterBar'
-import Image from '../components/Image'
+import HeaderBar from '../components/HeaderBar';
+import FooterBar from '../components/FooterBar';
 
 
 class List extends Component {
-
-    constructor(props) {
-        super(props);
-        
-    }
 
     componentWillMount() {
         this.props.fetchMovies(this.props.history);
@@ -35,7 +29,9 @@ class List extends Component {
                         position: 'relative'}} 
                         onClick={this.handleClick.bind(this, movie)}>
                     <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} 
-                        key={movie.id} movie={movie} 
+                        key={movie.id} 
+                        movie={movie}
+                        alt={'Movie poster'}
                         style={{zIndex: 0,
                             width: (window.innerWidth-40)/3, 
                             height: (window.innerWidth-40)*4/9, 
@@ -51,7 +47,8 @@ class List extends Component {
                                 background: 'rgba(0, 0, 0, 0.5)'}} > 
                             <img src="https://png.icons8.com/material/96/ffffff/checkmark.png" 
                                 style={{width: (window.innerWidth-40)/6, 
-                                height: (window.innerWidth-40)/6}}/>
+                                height: (window.innerWidth-40)/6}}
+                                alt={'Movie was watched'}/>
                         </div>
                     ) : (
                         <div/>

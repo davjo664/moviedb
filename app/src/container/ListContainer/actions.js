@@ -8,7 +8,7 @@ export function fetchMovies(history) {
         })
         .then((res) => {
             if (!res.ok) {
-                if (res.status == 403) {
+                if (res.status === 403) {
                     //Not logged in
                     console.log("NOT LOGGED IN");
                     history.replace('/login');

@@ -8,7 +8,7 @@ export function fetchMoviesByGenre(genre, page) {
         fetch(`${config.api.url}/movie?genre=${genre}&page=${page}`)
         .then((res) => res.json())
         .then((data) => {
-            if (data.statusCode && data.statusCode != 200) {
+            if (data.statusCode && data.statusCode !== 200) {
                 console.log(data.message);
             } else {
                 dispatch(
